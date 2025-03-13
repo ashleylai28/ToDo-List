@@ -1,8 +1,7 @@
 import express from "express";
 import { google } from "googleapis";
-import bodyParser from "body-parser";
 import cors from "cors";
-import creds from "./todolist-453515-cbbd2279141f.json" assert { type: "json" };
+import creds from "./todolist-453515-fb0e87973604.json" assert { type: "json" };
 
 const app = express();
 const PORT = 3001;
@@ -31,7 +30,6 @@ app.post("/add-task", async (req, res) => {
   if (!task) {
     return res.status(400).json({ error: "Task is required" });
   }
-  console.log("Received task:", task); // Add this to check the received task
 
   try {
     await sheets.spreadsheets.values.append({
@@ -66,9 +64,7 @@ app.get("/get-tasks", async (req, res) => {
 
 // Delete endpoint to delete a task from google sheets
 app.delete("/delete-task", async (req, res) => {
-  console.log("hi");
   const { task } = req.body;
-  console.log("task", task);
 
   if (!task) {
     return res.status(400).json({ error: "Task is required" });
@@ -96,7 +92,7 @@ app.delete("/delete-task", async (req, res) => {
     });
     res.status(200).json({ message: "Task deleted successfully!" });
   } catch (error) {
-    console.error("Error deleting task:", error);
+    // console.error("Error deleting task:", error);
     res.status(500).json({ error: "Failed to delete task" });
   }
 });

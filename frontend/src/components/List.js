@@ -11,7 +11,7 @@ function List() {
   }
 
   async function handleSubmit() {
-    if (!task) return;
+    if (!task.trim()) return;
     try {
       await fetch("http://localhost:3001/add-task", {
         method: "POST",
